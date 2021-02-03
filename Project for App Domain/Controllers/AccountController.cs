@@ -191,7 +191,7 @@ namespace Project_for_App_Domain.Controllers
                     db.State = model.State;
                     db.Zip = model.Zip;
                     db.UserTypeId = model.UserTypeId;
-                    db.UserName = model.UserName;
+                    db.UserName = model.UserName; //needs to save it as [firstinitial][lastname][month][year]
                     db.Picture = model.Picture;
                     db.Email = model.Email;
                     db.DateCreated = model.DateCreated;
