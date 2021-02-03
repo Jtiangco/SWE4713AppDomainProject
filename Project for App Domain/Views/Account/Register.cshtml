@@ -1,0 +1,142 @@
+﻿@model Project_for_App_Domain.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<head>
+    <meta name= ="viewport" content="width= device - width, initial-scale = 1.0" />
+    <link href="/Content/bootstrap.css" rel="stylsheet" />
+    <link href="/Content/site.css" rel="stylsheet" />
+    <script src="/Scripts/modernizr-2.8.3.js" rel="stylsheet"></script>
+</head>
+
+
+
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+
+        <div class="container">
+
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Flash Accounting</a>
+
+            </div>
+
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav">
+
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="/Home/About">About</a>
+                    </li>
+
+                    <li>
+                        <a href="/Home/Contact">Contact</a>
+                    </li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li>
+                        <a href="/Account/Register" id="registerlink">Register</a>
+                    </li>
+
+                    <li>
+                        <a href="/Account/Login" id="loginlink">Login</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <form action="action_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h1>Register</h1>
+                    <p>Please fill in this form to create an account.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Content/Logo For App Domain small.png" alt="Flash Accounting Logo" style="padding:10px" />
+                </div>
+            </div>
+            <hr>
+            <div>
+                @using (Html.BeginForm("SaveRegisterDetails", "Account"))
+                {
+                    <div style="color:red;">@Html.ValidationSummary()</div>
+                    <div class="row">
+                        <!--Show details are saved successfully message-->
+                        <div class="col-lg-12">@ViewBag.Message</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.FirstName)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.FirstName, new { @class = "form-control" })</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.LastName)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.LastName, new { @class = "form-control" })</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.DOB)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.DOB, new { @class = "form-control", type = "date" })</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.Email)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Email, new { @class = "form-control" })</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.Password)</div>
+                        <div class="col-lg-10">@Html.EditorFor(a => a.Password, new { @class = "form-control" })</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.Street)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Street, new { @class = "form-control" })</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.City)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.City, new { @class = "form-control" })</div>
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.State)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.State, new { @class = "form-control" })</div> @*<- want this to be a dropdown eventually*@
+                    </div><br />
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(a => a.Zip)</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Zip, new { @class = "form-control" })</div>
+                    </div><br />
+                }
+            </div>
+        </div>
+        <hr>
+        <div>
+            <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+            <!--<button type="submit" class="registerbtn">Register</button>-->
+            @*<p><a href="/" class="btn btn-primary btn-lg">Create Account &raquo;</a></p>*@
+            <input type="button" value="Create" id="btnSubmit" class="btn btn-primary btn-lg" onclick="btnRegister_Click()" />
+        </div>
+
+        <div class="container signin">
+            <p>Already have an account? <a href="https://localhost:44329/Account/Login">Sign in</a>.</p>
+        </div>
+    </form>
+
+    @Scripts.Render("~/Scripts/Account.js")
+
+</body>
