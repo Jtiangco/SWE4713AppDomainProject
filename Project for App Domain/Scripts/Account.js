@@ -18,11 +18,14 @@ function btnRegister_Click() {
             alert("Registration complete");
             window.location.href = "/Home/Index/";
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-            //alert("Registration error: Please contact Administrator" + " " + error);
+        error: function (x, e) {
+            if (x.status == 400) {
+                alert("User already exists");
+            }
+            //console.log(jqXHR);
+            //console.log(textStatus);
+            //console.log(errorThrown);
+            //alert(textStatus);
         }
     })
 

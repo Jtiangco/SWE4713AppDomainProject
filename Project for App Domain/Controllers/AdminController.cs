@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Project_for_App_Domain.Models;
 
 namespace Project_for_App_Domain.Controllers
 {
@@ -84,6 +85,13 @@ namespace Project_for_App_Domain.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult WebGrid()
+        {
+            IndexViewModel model = new IndexViewModel();
+            return View();
+            
         }
     }
 }

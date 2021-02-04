@@ -173,36 +173,58 @@ namespace Project_for_App_Domain.Controllers
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public  ActionResult Register(RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (model != null)
             {
-                User db = new User();
+                //var user = await UserManager.FindByNameAsync(model.Email);
+                SWE4713Entities ctx = new SWE4713Entities();
+                var result = ctx.Users.SingleOrDefault(b => b.Email == model.Email);
+                if (result == null)
+                {
 
-                db.FirstName = model.FirstName;
-                db.LastName = model.LastName;
-                db.DOB = Convert.ToDateTime(model.DOB);
-                db.Street = model.Street;
-                db.City = model.City;
-                db.State = model.State;
-                db.Zip = model.Zip;
-                db.UserTypeId = 3; //default set to Accountant
-                db.UserName = model.UserName; //needs to save it as [firstinitial][lastname][month][year]
-                                              //db.Picture = Convert.ToByte(model.Picture);
-                db.Email = model.Email;
-                db.DateCreated = Convert.ToDateTime(model.DateCreated);
-                db.DateUpdated = Convert.ToDateTime(model.DateUpdated);
-                db.UpdatedBy = Convert.ToInt32(model.UpdatedBy);
-                db.Active = true;
-                //db.Attempts = model["LoginAttempts"];
-                db.Password = Hasher.HashString(model.Password);
+                    User db = new User();
 
-                SWE4713Entities ent = new SWE4713Entities();
-                ent.Users.Add(db);
-                ent.SaveChanges();
+                    db.FirstName = model.FirstName;
+                    db.LastName = model.LastName;
+                    db.DOB = model.DOB;
+                    db.Street = model.Street;
+                    db.City = model.City;
+                    db.State = model.State;
+                    db.Zip = model.Zip;
+                    db.UserTypeId = 3; //default set to Accountant
+                    db.UserName = model.FirstName.Substring(0).ToLower() + model.LastName.ToLower() + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2); //needs to save it as [firstinitial][lastname][month][year]
+                    //db.Picture = Convert.ToByte(model.Picture);
+                    db.Email = model.Email;
+                    db.DateCreated = DateTime.Now;
+                    //db.DateUpdated = Convert.ToDateTime(model.DateUpdated);
+                    //db.UpdatedBy = Convert.ToInt32(model.UpdatedBy);
+                    db.Active = true;
+                    //db.Attempts = model["LoginAttempts"];
+                    db.Password = Hasher.HashString(model.Password);
+
+                    try
+                    {
+                        SWE4713Entities ent = new SWE4713Entities();
+                        ent.Users.Add(db);
+                        ent.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(400, "User already exists");
+                }
+                return View();
 
             }
-            return View();
+
+            return View("Error");
+
         }
 
         //
@@ -504,6 +526,8 @@ namespace Project_for_App_Domain.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
