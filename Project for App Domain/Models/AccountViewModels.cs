@@ -92,11 +92,11 @@ namespace Project_for_App_Domain.Models
         [Required]
         public string Zip { get; set; }
 
-        public int UserTypeId { get; set; }
+        //public int UserTypeId { get; set; }
 
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
 
-        public byte[] Picture { get; set; }
+        //public byte[] Picture { get; set; }
 
 
         [Required]

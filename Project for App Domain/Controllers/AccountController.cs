@@ -193,7 +193,7 @@ namespace Project_for_App_Domain.Controllers
                     db.State = model.State;
                     db.Zip = model.Zip;
                     db.UserTypeId = 3; //default set to Accountant
-                    db.UserName = model.FirstName.Substring(0).ToLower() + model.LastName.ToLower() + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2); //needs to save it as [firstinitial][lastname][month][year]
+                    db.UserName = model.FirstName.Substring(0,1).ToLower() + model.LastName.ToLower() + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2); //needs to save it as [firstinitial][lastname][month][year]
                     //db.Picture = Convert.ToByte(model.Picture);
                     db.Email = model.Email;
                     db.DateCreated = DateTime.Now;
