@@ -87,7 +87,7 @@ namespace Project_for_App_Domain.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
-                    IncrementLoginFailure(model.Username);
+                    //IncrementLoginFailure(model.Username);
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
                 default:
@@ -98,23 +98,23 @@ namespace Project_for_App_Domain.Controllers
 
         private void IncrementLoginFailure(string username)
         {
-            using (var db = new SWE4713Entities())
-            {
-                var result = db.Users.SingleOrDefault(b => b.UserName == username);
-                if (result != null)
-                {
-                    var loginAttempts = result.Attempts;
-                    if (loginAttempts >= 3)
-                    {
-                        //SignInManager.;
-                    }
-                    else
-                    {
-                        result.Attempts += 1;
-                        db.SaveChanges();
-                    }
-                }
-            }
+            //using (var db = new SWE4713Entities())
+            //{
+            //    var result = db.Users.SingleOrDefault(b => b.UserName == username);
+            //    if (result != null)
+            //    {
+            //        var loginAttempts = result.Attempts;
+            //        if (loginAttempts >= 3)
+            //        {
+            //            //SignInManager.;
+            //        }
+            //        else
+            //        {
+            //            result.Attempts += 1;
+            //            db.SaveChanges();
+            //        }
+            //    }
+            //}
         }
 
         //
@@ -185,20 +185,20 @@ namespace Project_for_App_Domain.Controllers
 
                     db.FirstName = model.FirstName;
                     db.LastName = model.LastName;
-                    db.DOB = model.DOB;
+                    db.DOB = Convert.ToDateTime(model.DOB);
                     db.Street = model.Street;
                     db.City = model.City;
                     db.State = model.State;
                     db.Zip = model.Zip;
-                    db.UserTypeId = model.UserTypeId;
+                    db.UserTypeId = 3; //default set to Accountant
                     db.UserName = model.UserName; //needs to save it as [firstinitial][lastname][month][year]
-                    db.Picture = model.Picture;
+                    //db.Picture = Convert.ToByte(model.Picture);
                     db.Email = model.Email;
-                    db.DateCreated = model.DateCreated;
-                    db.DateUpdated = model.DateUpdated;
-                    db.UpdatedBy = model.UpdatedBy;
-                    db.Active = model.Active;
-                    db.Attempts = model.LoginAttempts;
+                    db.DateCreated = Convert.ToDateTime(model.DateCreated);
+                    db.DateUpdated = Convert.ToDateTime(model.DateUpdated);
+                    db.UpdatedBy = Convert.ToInt32(model.UpdatedBy);
+                    db.Active = true;
+                    //db.Attempts = model["LoginAttempts"];
                     db.Password = Hasher.HashString(model.Password);
 
                     SWE4713Entities ent = new SWE4713Entities();

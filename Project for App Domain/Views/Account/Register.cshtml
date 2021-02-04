@@ -65,7 +65,7 @@
 
     </div>
 
-    <form action="action_page">
+    <form action="action_page", id="frmRegister">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -87,39 +87,39 @@
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.FirstName)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.FirstName, new { @class = "form-control" })</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.FirstName, new { @id = "FirstName", @class = "form-control" })</div>
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.LastName)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.LastName, new { @class = "form-control" })</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.LastName, new { @id = "LastName", @class = "form-control" })</div>
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.DOB)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.DOB, new { @class = "form-control", type = "date" })</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.DOB, new { @id = "DOB", @class = "form-control", type = "date" })</div>
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.Email)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Email, new { @class = "form-control" })</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Email, new { @id = "Email", @class = "form-control" })</div>
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.Password)</div>
-                        <div class="col-lg-10">@Html.EditorFor(a => a.Password, new { @class = "form-control" })</div>
+                        <div class="col-lg-10">@Html.EditorFor(a => a.Password, new { @id = "Password", @class = "form-control" })</div>
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.Street)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Street, new { @class = "form-control" })</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Street, new { @id = "Street", @class = "form-control" })</div>
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.City)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.City, new { @class = "form-control" })</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.City, new { @id = "City", @class = "form-control" })</div>
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.State)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.State, new { @class = "form-control" })</div> @*<- want this to be a dropdown eventually*@
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.State, new { @id = "State", @class = "form-control" })</div> @*<- want this to be a dropdown eventually*@
                     </div><br />
                     <div class="row">
                         <div class="col-lg-2">@Html.LabelFor(a => a.Zip)</div>
-                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Zip, new { @class = "form-control" })</div>
+                        <div class="col-lg-10">@Html.TextBoxFor(a => a.Zip, new { @id = "Zip", @class = "form-control" })</div>
                     </div><br />
                 }
             </div>
