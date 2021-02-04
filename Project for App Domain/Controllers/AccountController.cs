@@ -172,52 +172,37 @@ namespace Project_for_App_Domain.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        //[ValidateAntiForgeryToken]
+        public  ActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                User db = new User();
 
-                    db.FirstName = model.FirstName;
-                    db.LastName = model.LastName;
-                    db.DOB = Convert.ToDateTime(model.DOB);
-                    db.Street = model.Street;
-                    db.City = model.City;
-                    db.State = model.State;
-                    db.Zip = model.Zip;
-                    db.UserTypeId = 3; //default set to Accountant
-                    db.UserName = model.UserName; //needs to save it as [firstinitial][lastname][month][year]
-                    //db.Picture = Convert.ToByte(model.Picture);
-                    db.Email = model.Email;
-                    db.DateCreated = Convert.ToDateTime(model.DateCreated);
-                    db.DateUpdated = Convert.ToDateTime(model.DateUpdated);
-                    db.UpdatedBy = Convert.ToInt32(model.UpdatedBy);
-                    db.Active = true;
-                    //db.Attempts = model["LoginAttempts"];
-                    db.Password = Hasher.HashString(model.Password);
+                db.FirstName = model.FirstName;
+                db.LastName = model.LastName;
+                db.DOB = Convert.ToDateTime(model.DOB);
+                db.Street = model.Street;
+                db.City = model.City;
+                db.State = model.State;
+                db.Zip = model.Zip;
+                db.UserTypeId = 3; //default set to Accountant
+                db.UserName = model.UserName; //needs to save it as [firstinitial][lastname][month][year]
+                                              //db.Picture = Convert.ToByte(model.Picture);
+                db.Email = model.Email;
+                db.DateCreated = Convert.ToDateTime(model.DateCreated);
+                db.DateUpdated = Convert.ToDateTime(model.DateUpdated);
+                db.UpdatedBy = Convert.ToInt32(model.UpdatedBy);
+                db.Active = true;
+                //db.Attempts = model["LoginAttempts"];
+                db.Password = Hasher.HashString(model.Password);
 
-                    SWE4713Entities ent = new SWE4713Entities();
-                    ent.Users.Add(db);
-                    ent.SaveChanges();
+                SWE4713Entities ent = new SWE4713Entities();
+                ent.Users.Add(db);
+                ent.SaveChanges();
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return View();
         }
 
         //

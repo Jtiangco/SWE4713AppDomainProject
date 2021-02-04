@@ -16,6 +16,7 @@ function btnRegister_Click() {
         //cache: false,
         success: function (result) {
             alert("Registration complete");
+            window.location.href = "/Home/Index/";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
