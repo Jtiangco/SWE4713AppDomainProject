@@ -30,6 +30,8 @@ namespace Project_for_App_Domain.Controllers
         // GET: ChartAccount/Create
         public ActionResult Create()
         {
+            // TODO: check for duplicate account number already in the table
+
             return View();
         }
 

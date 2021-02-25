@@ -92,13 +92,6 @@ namespace Project_for_App_Domain.Models
         [Required]
         public string Zip { get; set; }
 
-        //public int UserTypeId { get; set; }
-
-        //public string UserName { get; set; }
-
-        //public byte[] Picture { get; set; }
-
-
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -112,16 +105,10 @@ namespace Project_for_App_Domain.Models
         public int LoginAttempts { get; set; }
 
         [Required]
-        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         [RegularExpression("^(?=.[A-Za-z])(?=.[0-9])(?=.[@$!%#?&])[A-Za-z0-9@$!%#?&]{8,}$", ErrorMessage = "Password must be at least 8 characters, start with a letter, contain at least 1 number, and contain at last 1 special character")]
         public string Password { get; set; }
-
-        //[DataType(DataType.Password)]
-        //[Display(Name = "Confirm password")]
-        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        //public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel

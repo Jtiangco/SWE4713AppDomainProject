@@ -184,11 +184,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HashLibrary.cs" />
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\ChartAccount.cs">
       <DependentUpon>SWEModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChartAccountModel.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\EventLog.cs">
       <DependentUpon>SWEModel.tt</DependentUpon>
     </Compile>

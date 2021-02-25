@@ -16,17 +16,31 @@ namespace Project_for_App_Domain.Models
     public partial class ChartAccount
     {
         public int AccountId { get; set; }
+        [Required]
+        [Display(Name = "Account Name")]
         public string AccountName { get; set; }
+        [Required]
         [Display(Name = "Account Number")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Account Number Must Be Numeric Only")]
         public string AccountNumber { get; set; }
+        [Required]
+        [Display(Name = "Account Description")]
         public string AccountDesc { get; set; }
+        [Display(Name = "Normal Side")]
         public string NormalSide { get; set; }
+        [Required]
+        [Display(Name = "Account Category")]
         public string AccountCategory { get; set; }
+        [Required]
+        [Display(Name = "Account Sub-Category")]
         public string AccountSubCategory { get; set; }
+        [Required]
+        [Display(Name = "Initial Balance")]
         public Nullable<decimal> InitialBalance { get; set; }
         public Nullable<decimal> Debit { get; set; }
         public Nullable<decimal> Credit { get; set; }
         public Nullable<decimal> Balance { get; set; }
+        [Display(Name = "Date Created")]
         public Nullable<System.DateTime> DateCreated { get; set; }
         public bool Active { get; set; }
         public int UserId { get; set; }
@@ -34,6 +48,7 @@ namespace Project_for_App_Domain.Models
         public string Statement { get; set; }
         public string Comment { get; set; }
         public string UpdatedBy { get; set; }
+        [Display(Name = "Date Updated")]
         public Nullable<System.DateTime> DateUpdated { get; set; }
     
         public virtual User User { get; set; }

@@ -1,0 +1,88 @@
+﻿@model Project_for_App_Domain.Models.AdminViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Administration</h4>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>User Type</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>DOB</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Active</th>
+                <th>Attempts</th>
+                <th>Date Created</th>
+                <th>Date Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model.AccountList)
+            {
+                <tr>
+                    <th scope="row">@item.UserId</th>
+                    <td>@item.UserName</td>
+                    <td>@item.UserType</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Email</td>
+                    <td>@item.DOB</td>
+                    <td>@item.Street</td>
+                    <td>@item.City</td>
+                    <td>@item.State</td>
+                    <td>@item.Zip</td>
+                    <td>@item.Active</td>
+                    <td>@item.Attempts</td>
+                    <td>@item.DateCreated</td>
+                    <td>@item.DateUpdated</td>
+                    <td>
+                        <a data-value="@item.UserId"
+                           href="javascript:void(0)" class="btnEdit">Edit</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+<div id="dialog" title="edit view" style="overflow: hidden;"></div>
+<script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script type="text/javascript">
+	    $(function () {
+	        var id = 0;
+	        $(document).on('click', '.btnEdit', function () {
+	            id = $(this).attr("data-value");
+	            $('#dialog').dialog('open');
+	        });
+
+	        $('#dialog').dialog({
+	            autoOpen: false,
+	            width: 400,
+	            resizable: false,
+	            title: 'Edit Account details',
+	            modal: true,
+	            open: function (event, ui) {
+	                // Load partial view _GridEditPartial
+	                $(this).load("@Url.Action("GetAccountById")", { id: id });
+	            },
+	            buttons: {
+	                "Close": function () {
+	                    $(this).dialog("close");
+	                }
+	            }
+	        });
+	    });
+</script>
