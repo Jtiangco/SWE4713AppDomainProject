@@ -18,6 +18,7 @@ namespace Project_for_App_Domain.Models
         public User()
         {
             this.PasswordHistories = new HashSet<PasswordHistory>();
+            this.ChartAccounts = new HashSet<ChartAccount>();
         }
     
         public int UserId { get; set; }
@@ -42,5 +43,7 @@ namespace Project_for_App_Domain.Models
         public virtual UserType UserType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PasswordHistory> PasswordHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChartAccount> ChartAccounts { get; set; }
     }
 }

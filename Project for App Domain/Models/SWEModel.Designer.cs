@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Josh Tiangco\Downloads\ma\Project for App Domain\Project for App Domain\Models\SWEModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Josh Tiangco\source\repos\Jtiangco\SWE4713AppDomainProject\Project for App Domain\Models\SWEModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

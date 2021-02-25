@@ -5,6 +5,54 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SWE4713Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChartAccount">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="AccountName" Type="varchar" MaxLength="50" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountDesc" Type="varchar" MaxLength="50" />
+          <Property Name="NormalSide" Type="varchar" MaxLength="50" />
+          <Property Name="AccountCategory" Type="varchar" MaxLength="50" />
+          <Property Name="AccountSubCategory" Type="varchar" MaxLength="50" />
+          <Property Name="InitialBalance" Type="money" />
+          <Property Name="Debit" Type="money" />
+          <Property Name="Credit" Type="money" />
+          <Property Name="Balance" Type="money" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" />
+          <Property Name="Statement" Type="char" MaxLength="2" />
+          <Property Name="Comment" Type="varchar" MaxLength="250" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="DateUpdated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" Nullable="false" />
+          <Property Name="AccountName" Type="varchar" MaxLength="50" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountDesc" Type="varchar" MaxLength="50" />
+          <Property Name="NormalSide" Type="varchar" MaxLength="50" />
+          <Property Name="AccountCategory" Type="varchar" MaxLength="50" />
+          <Property Name="AccountSubcategory" Type="varchar" MaxLength="50" />
+          <Property Name="InitialBalance" Type="money" />
+          <Property Name="Debit" Type="money" />
+          <Property Name="Credit" Type="money" />
+          <Property Name="Balance" Type="money" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" />
+          <Property Name="Statement" Type="char" MaxLength="2" />
+          <Property Name="Comment" Type="varchar" MaxLength="250" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="DateUpdated" Type="datetime" />
+        </EntityType>
         <EntityType Name="PasswordHistory">
           <Key>
             <PropertyRef Name="PasswordHistoryId" />
@@ -48,6 +96,18 @@
           <Property Name="UserType" Type="varchar" MaxLength="50" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Account_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ChartAccount" Type="Self.ChartAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ChartAccount">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PasswordHistory_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="PasswordHistory" Type="Self.PasswordHistory" Multiplicity="*" />
@@ -73,9 +133,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SWE4713ModelStoreContainer">
+          <EntitySet Name="ChartAccount" EntityType="Self.ChartAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventLog" EntityType="Self.EventLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PasswordHistory" EntityType="Self.PasswordHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_User" Association="Self.FK_Account_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChartAccount" EntitySet="ChartAccount" />
+          </AssociationSet>
           <AssociationSet Name="FK_PasswordHistory_User" Association="Self.FK_PasswordHistory_User">
             <End Role="User" EntitySet="User" />
             <End Role="PasswordHistory" EntitySet="PasswordHistory" />
@@ -100,6 +166,12 @@
           <AssociationSet Name="FK_PasswordHistory_User" Association="SWE4713Model.FK_PasswordHistory_User">
             <End Role="User" EntitySet="Users" />
             <End Role="PasswordHistory" EntitySet="PasswordHistories" />
+          </AssociationSet>
+          <EntitySet Name="EventLogs" EntityType="SWE4713Model.EventLog" />
+          <EntitySet Name="ChartAccounts" EntityType="SWE4713Model.ChartAccount" />
+          <AssociationSet Name="FK_Account_User" Association="SWE4713Model.FK_Account_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ChartAccount" EntitySet="ChartAccounts" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
@@ -126,6 +198,7 @@
           <Property Name="Attempts" Type="Int32" />
           <NavigationProperty Name="UserType" Relationship="SWE4713Model.FK_User_UserType" FromRole="User" ToRole="UserType" />
           <NavigationProperty Name="PasswordHistories" Relationship="SWE4713Model.FK_PasswordHistory_User" FromRole="User" ToRole="PasswordHistory" />
+          <NavigationProperty Name="ChartAccounts" Relationship="SWE4713Model.FK_Account_User" FromRole="User" ToRole="ChartAccount" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -169,6 +242,67 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="PasswordHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NormalSide" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountSubcategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Debit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Credit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" />
+          <Property Name="Statement" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ChartAccount">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NormalSide" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountSubCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Debit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Credit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" />
+          <Property Name="Statement" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="SWE4713Model.FK_Account_User" FromRole="ChartAccount" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Account_User">
+          <End Type="SWE4713Model.User" Role="User" Multiplicity="1" />
+          <End Type="SWE4713Model.ChartAccount" Role="ChartAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ChartAccount">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -222,6 +356,56 @@
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="OldPassword" ColumnName="OldPassword" />
                 <ScalarProperty Name="PasswordHistoryId" ColumnName="PasswordHistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventLogs">
+            <EntityTypeMapping TypeName="SWE4713Model.EventLog">
+              <MappingFragment StoreEntitySet="EventLog">
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Statement" ColumnName="Statement" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+                <ScalarProperty Name="AccountSubcategory" ColumnName="AccountSubcategory" />
+                <ScalarProperty Name="AccountCategory" ColumnName="AccountCategory" />
+                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
+                <ScalarProperty Name="AccountDesc" ColumnName="AccountDesc" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartAccounts">
+            <EntityTypeMapping TypeName="SWE4713Model.ChartAccount">
+              <MappingFragment StoreEntitySet="ChartAccount">
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Statement" ColumnName="Statement" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+                <ScalarProperty Name="AccountSubCategory" ColumnName="AccountSubCategory" />
+                <ScalarProperty Name="AccountCategory" ColumnName="AccountCategory" />
+                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
+                <ScalarProperty Name="AccountDesc" ColumnName="AccountDesc" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

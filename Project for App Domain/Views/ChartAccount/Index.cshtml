@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Project_for_App_Domain.Models.ChartAccount>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th style="display:none">
+            @Html.DisplayNameFor(model => model.AccountId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NormalSide)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountSubCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InitialBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Debit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Credit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Statement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="display:none">
+                @Html.DisplayFor(modelItem => item.AccountId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalSide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountSubCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitialBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Debit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Statement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>

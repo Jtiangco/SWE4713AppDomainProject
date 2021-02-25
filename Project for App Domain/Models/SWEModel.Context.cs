@@ -28,5 +28,7 @@ namespace Project_for_App_Domain.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<PasswordHistory> PasswordHistories { get; set; }
+        public virtual DbSet<EventLog> EventLogs { get; set; }
+        public virtual DbSet<ChartAccount> ChartAccounts { get; set; }
     }
 }
